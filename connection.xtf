@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><TRANSFER xmlns="http://www.interlis.ch/INTERLIS2.3">
+<HEADERSECTION SENDER="ili2pg-4.7.0-5f0d7297204b098526ced56619a49df9e5fd4d3b" VERSION="2.3"><MODELS><MODEL NAME="Meta_V0_1" VERSION="0.1" URI="https://agi.so.ch"></MODEL></MODELS></HEADERSECTION>
+<DATASECTION>
+<Meta_V0_1.DatabaseConnections BID="databaseconnections.sogis.pub">
+<Meta_V0_1.DatabaseConnections.DatabaseConnection TID="sogis.pub"><JdbcUrl>jdbc:postgresql://localhost:54322/pub</JdbcUrl><User>ogc_service</User><Password>fubar</Password></Meta_V0_1.DatabaseConnections.DatabaseConnection>
+</Meta_V0_1.DatabaseConnections>
+</DATASECTION>
+</TRANSFER>

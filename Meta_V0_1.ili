@@ -1,0 +1,84 @@
+INTERLIS 2.3;
+
+/** !!------------------------------------------------------------------------------
+ *  !! Version    | wer | Änderung
+ *  !!------------------------------------------------------------------------------
+ *  !! 2022-07-03 | sz  | Ersterfassung
+ *  !!==============================================================================
+ */
+!!@ technicalContact=mailto:agi@bd.so.ch
+!!@ furtherInformation=http://geo.so.ch/models/AGI/Meta_V0_1.uml
+MODEL Meta_V0_1 (de)
+AT "https://agi.so.ch"
+VERSION "0.1"  =
+
+    DOMAIN
+        METAOID = OID TEXT*512;
+
+    TOPIC DatabaseConnections =
+        OID AS METAOID;
+
+        CLASS DatabaseConnection =
+            JdbcUrl : MANDATORY TEXT;
+            User : TEXT;
+            Password : TEXT;
+            UNIQUE JdbcUrl, User, Password;
+        END DatabaseConnection;
+
+    END DatabaseConnections;
+
+    TOPIC Datastores =
+        OID AS METAOID;
+        DEPENDS ON Meta_V0_1.DatabaseConnections;
+
+        CLASS Datastore = 
+            Identifier : MANDATORY TEXT;
+            Name : MANDATORY TEXT;
+            DatabaseSchema : MANDATORY TEXT;
+            UNIQUE Identifier;
+        END Datastore;
+
+        ASSOCIATION DatabaseConnection_Datastore =
+            r_DatabaseConnection (EXTERNAL) -- {1} Meta_V0_1.DatabaseConnections.DatabaseConnection;
+            r_Datastore -- {0..*} Datastore;
+        END DatabaseConnection_Datastore;
+
+    END Datastores;
+
+    !! STRUCTURE Field =
+    !!   Name : MANDATORY TEXT;
+    !!   Alias : TEXT;
+    !! END Field;
+
+    !! CLASS PostgresTable =
+    !! END PostgresTable;
+
+    !! CLASS Store (ABSTRACT) =
+    !!   Id : MANDATORY TEXT*1024;
+    !! END Store;
+
+    !! CLASS TableView =
+    !! END TableView;
+
+    !! CLASS DatasetView =
+    !!   DatabaseSource : MANDATORY TEXT;
+    !!   DatabaseSchema : MANDATORY TEXT;
+    !!   DatabaseTable : MANDATORY TEXT;
+    !!   Title : MANDATORY TEXT;
+    !!   Name : MANDATORY TEXT;
+    !!   Fields : BAG {0..*} OF SO_AGI_Metamodel_20211027.Metamodel.Field;
+    !!   Geometry : TEXT;
+    !! END DatasetView;
+
+    !! CLASS PostgresStore
+    !! EXTENDS Store =
+    !!   Host : MANDATORY TEXT*1024;
+    !!   Port : 1 .. 999999;
+    !!   Database : MANDATORY TEXT*1024;
+    !!   User : TEXT*1024;
+    !!   Password : TEXT*1024;
+    !!   Url : MANDATORY TEXT*2048;
+    !! END PostgresStore;
+
+
+END Meta_V0_1.

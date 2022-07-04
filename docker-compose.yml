@@ -1,0 +1,13 @@
+version: '3'
+services:
+  meta-db:
+    image: sogis/postgis-fdw:13-3.2
+    environment:
+      POSTGRES_DB: meta
+      POSTGRES_PASSWORD: postgres
+      #POSTGRES_HOST_AUTH_METHOD: md5
+    restart: unless-stopped
+    ports:
+      - "54324:5432"
+    # volumes:
+    #   - "~/pgdata:/var/lib/postgresql/data:delegated"
